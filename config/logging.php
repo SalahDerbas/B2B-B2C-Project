@@ -127,6 +127,36 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        // ============================================================================
+        'B2B_LOGGER' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/b2b.log'),
+            'level' => 'debug',
+            'log_max_files' => 180,
+            'days' => 180
+        ],
+        'SOURCES_MONTHLY' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/sources_monthly.log'),
+            'level' => 'debug'
+        ],
+        'SOURCES_HOURLY' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/sources_hourly.log'),
+            'level' => 'debug'
+        ],
+        'SOURCES_BALANCE' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/sources_balance.log'),
+            'level' => 'debug'
+        ],
+        'SALES_TOTLAL' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/sales_total.log'),
+            'level' => 'debug'
+        ],
+
+
     ],
 
 ];
