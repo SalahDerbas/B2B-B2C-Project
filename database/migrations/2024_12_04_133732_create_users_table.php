@@ -13,11 +13,27 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('type')->default('1');
+            $table->string('google_id')->nullable();
+            $table->string('facebook_id')->nullable();
+            $table->string('twitter_id')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('fcm_id')->nullable();
+            $table->string('code_auth')->nullable();
+            $table->datetime('expire_time')->nullable();
+            $table->datetime('last_login')->nullable();
+            $table->boolean('status')->default(1);
+            $table->string('country')->nullable();
+            $table->boolean('enable_notification')->default(true);
+            $table->string('ip')->nullable();
+            $table->unsignedBigInteger('payment_id')->nullable();
+            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 
