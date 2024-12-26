@@ -38,6 +38,7 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            // \App\Http\Middleware\CheckIfAuthenticated::class,
 	    ],
         'uploads' => [
                 // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
@@ -55,6 +56,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
+
         'auth.basic'          => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session'        => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers'       => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -65,5 +67,6 @@ class Kernel extends HttpKernel
         'verified'            => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin'               => \App\Http\Middleware\Admin::class,
         'B2BLogin'            => \App\Http\Middleware\B2B::class,
+
     ];
 }

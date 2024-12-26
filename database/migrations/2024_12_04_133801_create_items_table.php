@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('validaty')->nullable();
             $table->json('coverages')->nullable();
             $table->boolean('status')->default(1);
+            $table->boolean('is_slider')->default(0);
             $table->unsignedBigInteger('sub_category_id');
             $table->foreign('sub_category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->softDeletes();

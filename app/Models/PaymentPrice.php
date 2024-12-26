@@ -15,5 +15,13 @@ class PaymentPrice extends Model
     public static function getTableName() {
         return with(new static)->getTable();
     }
+    public function getItemSource()
+    {
+        return $this->hasOne(ItemSource::class, 'id', 'item_source_id');
+    }
 
+    public function getPayment()
+    {
+        return $this->hasOne(Payment::class, 'id', 'payment_id');
+    }
 }
