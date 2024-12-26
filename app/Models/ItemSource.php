@@ -16,4 +16,9 @@ class ItemSource extends Model
         return with(new static)->getTable();
     }
 
+    public function getPaymentPrice()
+    {
+        return $this->hasMany(PaymentPrice::class, 'item_source_id', 'id');
+    }
+
 }
