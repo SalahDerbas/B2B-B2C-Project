@@ -16,6 +16,10 @@ class LookupSeeder extends Seeder
         DB::table('lookups')->delete();
 
         DB::table('lookups')->insert([
+            ['code' =>       'U-Category',         'key' => 'C-Local',             'value' => '1'],
+            ['code' =>       'U-Category',         'key' => 'C-Regional',          'value' => '2'],
+            ['code' =>       'U-Category',         'key' => 'C-Global',            'value' => '3'],
+
             ['code' =>       'U-OperatorType',     'key' => 'OT-fixed',            'value' => 'Fixed'],
             ['code' =>       'U-OperatorType',     'key' => 'OT-percentage',       'value' => 'Percentage'],
             ['code' =>       'U-Content',          'key' => 'C-about_us',          'value' => 'This is content (About Us)'],

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('country_id')->references('id')->on('lookups')->onDelete('cascade');
             $table->string('photo')->nullable();
             $table->boolean('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ use Database\Seeders\PaymentSeeder;
 use Database\Seeders\PromoCodeSeeder;
 use Database\Seeders\SourceSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\ItemSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PromoCodeSeeder::class);
         $this->call(SourceSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ItemSeeder::class);
     }
 }

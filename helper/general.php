@@ -4,10 +4,15 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Lookup;
 use Carbon\Carbon;
 
-
-
-
-
+/**
+* This function retrieves the status text associated with a response code. It uses translations
+* for each code key from a specified language file. If no specific response code is provided,
+* it returns all possible status texts; otherwise, it returns the specific status text or a default
+* "message not found" code if the response code doesn't exist in the list.
+* @author Salah Derbas
+*/
+// if (!function_exists('getStatusText')) {
+// }
 
 
 
@@ -33,6 +38,16 @@ if (!function_exists('getIDLookups')) {
     }
 }
 
+/**
+*  This function retrieves the value of a lookup record by key.
+* @author Salah Derbas
+*/
+if (!function_exists('getValueLookups')) {
+    function getValueLookups($key)
+    {
+        return Lookup::where(['key' => $key ])->pluck('value')->first();
+    }
+}
 /**
 * Checks if the function 'handleFileUpload' already exists before defining it.
 * This function handles the uploading of files, allowing optional deletion of old files if updating.
