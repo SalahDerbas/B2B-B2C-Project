@@ -21,24 +21,29 @@ class UserSeeder extends Seeder
             [
                 'name'              => 'salahdrbas'                 ,
                 'email'             => 'salahdrbas1@gmail.com'      ,
+                'type'              => 1                            ,
                 'password'          => Hash::make('salah@@123')     ,
                 'email_verified_at' => Carbon::now()                ,
-                'type'              => 1                            ,
+                'created_at'        => Carbon::now()                ,
+                'updated_at'        => Carbon::now()                ,
             ] ,
             [
                 'name'              => 'b2c'                        ,
                 'email'             => 'b2c@gmail.com'              ,
+                'type'              => 1                            ,
                 'password'          => Hash::make('b2c@@123')       ,
                 'email_verified_at' => Carbon::now()                ,
-                'type'              => 1                            ,
-
+                'created_at'        => Carbon::now()                ,
+                'updated_at'        => Carbon::now()                ,
             ] ,
             [
                 'name'              => 'b2b'                        ,
                 'email'             => 'b2b@gmail.com'              ,
+                'type'              => 2                            ,
                 'password'          => Hash::make('b2b@@123')       ,
                 'email_verified_at' => Carbon::now()                ,
-                'type'              => 2                            ,
+                'created_at'        => Carbon::now()                ,
+                'updated_at'        => Carbon::now()                ,
             ]
         ]);
     }

@@ -27,12 +27,16 @@ class LookupSeeder extends Seeder
             ['code' =>       'U-Content',          'key' => 'C-FAQ',               'value' => 'This is content (FAQ)'],
             ['code' =>       'U-Content',          'key' => 'C-terms_conditions',  'value' => 'This is content (Terms & Conditions)'],
             ['code' =>       'U-Content',          'key' => 'C-sliders',           'value' => 'This is content (Sliders)'],
+
+            ['code' =>       'U-StatusOrder',      'key' => 'SO-submit_order' ,    'value' => 'Submit order'],
             ['code' =>       'U-StatusOrder',      'key' => 'SO-success' ,         'value' => 'Success'],
             ['code' =>       'U-StatusOrder',      'key' => 'SO-failed'  ,         'value' => 'Failed' ],
             ['code' =>       'U-StatusOrder',      'key' => 'SO-charged' ,         'value' => 'Charged'],
+
             ['code' =>       'U-StatusPackage',    'key' => 'SP-new' ,             'value' => 'New'],
             ['code' =>       'U-StatusPackage',    'key' => 'SP-current' ,         'value' => 'Current'],
             ['code' =>       'U-StatusPackage',    'key' => 'SP-archived' ,        'value' => 'Archived'],
+
             ['code' =>       'U-PromocodeType',    'key' => 'PCT-global' ,         'value' => 'Global'],
             ['code' =>       'U-PromocodeType',    'key' => 'PCT-item' ,           'value' => 'Item'],
             ['code' =>       'U-PromocodeType',    'key' => 'PCT-category',        'value' => 'Category'],
