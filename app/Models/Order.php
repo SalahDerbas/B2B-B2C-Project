@@ -16,4 +16,9 @@ class Order extends Model
         return with(new static)->getTable();
     }
 
+    public function getItemSource()
+    {
+        return $this->hasOne(ItemSource::class, 'id', 'item_source_id');
+    }
+
 }

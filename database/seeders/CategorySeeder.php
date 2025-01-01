@@ -18,8 +18,8 @@ class CategorySeeder extends Seeder
         DB::table('categories')->insert([
 
             ['name' => 'Local',    'description' => 'Local Plans',           'sub_category_id' => NULL  , 'created_at' => now(), 'updated_at'  => now() ],
-            ['name' => 'Regional', 'description' => 'Regional Plans',           'sub_category_id' => NULL  , 'created_at' => now(), 'updated_at'  => now() ],
-            ['name' => 'Global',   'description' => 'Global Plans',           'sub_category_id' => NULL  , 'created_at' => now(), 'updated_at'  => now() ],
+            ['name' => 'Regional', 'description' => 'Regional Plans',        'sub_category_id' => NULL  , 'created_at' => now(), 'updated_at'  => now() ],
+            ['name' => 'Global',   'description' => 'Global Plans',          'sub_category_id' => NULL  , 'created_at' => now(), 'updated_at'  => now() ],
 
         ]);
     }

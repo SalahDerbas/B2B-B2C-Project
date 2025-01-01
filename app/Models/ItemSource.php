@@ -21,4 +21,14 @@ class ItemSource extends Model
         return $this->hasMany(PaymentPrice::class, 'item_source_id', 'id');
     }
 
+    public function getItem()
+    {
+        return $this->hasOne(Item::class, 'id', 'item_id');
+    }
+
+    public function getSource()
+    {
+        return $this->hasOne(Source::class, 'id', 'source_id');
+    }
+
 }
