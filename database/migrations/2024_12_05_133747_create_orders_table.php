@@ -19,7 +19,6 @@ return new class extends Migration
             $table->double('cost_price' , 10, 2)->default(0.0);
             $table->json('user_agent')->nullable();
             $table->string('iccid')->nullable();
-            $table->string('promocode_value')->nullable();
             $table->string('transaction_id')->nullable();
             $table->unsignedBigInteger('sub_category_id');
             $table->foreign('sub_category_id')->references('id')->on('categories')->onDelete('cascade');
@@ -31,8 +30,11 @@ return new class extends Migration
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');
             $table->unsignedBigInteger('source_id')->nullable();
             $table->foreign('source_id')->references('id')->on('sources')->onDelete('cascade');
-            $table->unsignedBigInteger('status')->nullable();
-            $table->foreign('status')->references('id')->on('lookups')->onDelete('cascade');
+            $table->unsignedBigInteger('status_order')->nullable();
+            $table->foreign('status_order')->references('id')->on('lookups')->onDelete('cascade');
+            $table->unsignedBigInteger('status_package')->nullable();
+            $table->foreign('status_package')->references('id')->on('lookups')->onDelete('cascade');
+            $table->string('promo_code')->nullable();
             $table->unsignedBigInteger('promo_code_id')->nullable();
             $table->foreign('promo_code_id')->references('id')->on('promo_codes')->onDelete('cascade');
             $table->unsignedBigInteger('item_source_id')->nullable();

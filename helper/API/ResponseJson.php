@@ -31,6 +31,16 @@ define('SEARCH_NOT_FOUND_CODE'                , 1025);
 define('SEARCH_SUCCESS_CODE'                  , 1026);
 define('SLIDER_NOT_FOUND_CODE'                , 1027);
 define('SLIDER_SUCCESS_CODE'                  , 1028);
+define('CHECK_PROMOCODE_SUCCESS_CODE'         , 1029);
+define('PAYMENT_CALLBACK_FAILED_CODE'         , 1030);
+define('SUBMIT_ORDER_FAILED_CODE'             , 1031);
+define('SUBMIT_ORDER_SUCCESS_CODE'            , 1032);
+define('ORDER_DATA_SUCCESS_CODE'              , 1033);
+define('PACKAGES_SUCCESS_CODE'                , 1034);
+define('PACKAGES_EMPTY_CODE'                  , 1035);
+define('USAGE_PACKAGE_FAILED_CODE'            , 1036);
+define('USAGE_PACKAGE_SUCCESS_CODE'           , 1037);
+define('GET_QR_SUCCESS_CODE'                  , 1038);
 
 
 
@@ -74,7 +84,25 @@ define('REGISTER_USER_SUCCESS_CODE'           , 4056);
 define('UPDATE_PROFILE_SUCCESS_CODE'          , 4057);
 define('ID_REQUIRED_CODE'                     , 4058);
 define('ID_EXISTS_CODE'                       , 4059);
-
+define('ITEM_SOURCE_ID_REQUIRED_CODE'         , 4060);
+define('ITEM_SOURCE_ID_EXISTS_CODE'           , 4061);
+define('PAYMENT_ID_REQUIRED_CODE'             , 4062);
+define('PAYMENT_ID_EXISTS_CODE'               , 4063);
+define('PAYMENT_METHOD_SUCCESS_CODE'          , 4064);
+define('PAYMENT_METHOD_FAILED_CODE'           , 4065);
+define('PROMO_CODE_REQUIRED_CODE'             , 4066);
+define('PROMO_CODE_EXISTS_CODE'               , 4067);
+define('PROMOCODE_USER_LIMIT'                 , 4068);
+define('PROMOCODE_LIMIT'                      , 4069);
+define('PROMOCODE_DATE'                       , 4070);
+define('PROMOCODE_PRICE_AMOUNT'               , 4071);
+define('ORDER_DATA_REQUIRED_CODE'             , 4072);
+define('ORDER_DATA_SUBMIT_CODE'               , 4073);
+define('ORDER_DATA_NOT_FOUND_CODE'            , 4074);
+define('ICCID_EXISTS_CODE'                    , 4075);
+define('ICCID_REQUIRED_CODE'                  , 4076);
+define('ORDER_DATA_IS_SHARE_CODE'             , 4077);
+define('ORDER_DATA_USER_IS_SHARE_CODE'        , 4078);
 
 
 
@@ -358,7 +386,35 @@ if (!function_exists('getStatusText')) {
             SEARCH_SUCCESS_CODE                   => trans($key.'.SEARCH_SUCCESS_CODE'),
             SLIDER_NOT_FOUND_CODE                 => trans($key.'.SLIDER_NOT_FOUND_CODE'),
             SLIDER_SUCCESS_CODE                   => trans($key.'.SLIDER_SUCCESS_CODE'),
-
+            ITEM_SOURCE_ID_REQUIRED_CODE          => trans($key.'.ITEM_SOURCE_ID_REQUIRED_CODE'),
+            ITEM_SOURCE_ID_EXISTS_CODE            => trans($key.'.ITEM_SOURCE_ID_EXISTS_CODE'),
+            PAYMENT_ID_REQUIRED_CODE              => trans($key.'.PAYMENT_ID_REQUIRED_CODE'),
+            PAYMENT_ID_EXISTS_CODE                => trans($key.'.PAYMENT_ID_EXISTS_CODE'),
+            PAYMENT_METHOD_SUCCESS_CODE           => trans($key.'.PAYMENT_METHOD_SUCCESS_CODE'),
+            PAYMENT_METHOD_FAILED_CODE            => trans($key.'.PAYMENT_METHOD_FAILED_CODE'),
+            PROMO_CODE_EXISTS_CODE                => trans($key.'.PROMO_CODE_EXISTS_CODE'),
+            PROMO_CODE_REQUIRED_CODE              => trans($key.'.PROMO_CODE_REQUIRED_CODE'),
+            PROMOCODE_USER_LIMIT                  => trans($key.'.PROMOCODE_USER_LIMIT'),
+            PROMOCODE_LIMIT                       => trans($key.'.PROMOCODE_LIMIT'),
+            PROMOCODE_DATE                        => trans($key.'.PROMOCODE_DATE'),
+            PROMOCODE_PRICE_AMOUNT                => trans($key.'.PROMOCODE_PRICE_AMOUNT'),
+            CHECK_PROMOCODE_SUCCESS_CODE          => trans($key.'.CHECK_PROMOCODE_SUCCESS_CODE'),
+            PAYMENT_CALLBACK_FAILED_CODE          => trans($key.'.PAYMENT_CALLBACK_FAILED_CODE'),
+            SUBMIT_ORDER_FAILED_CODE              => trans($key.'.SUBMIT_ORDER_FAILED_CODE'),
+            SUBMIT_ORDER_SUCCESS_CODE             => trans($key.'.SUBMIT_ORDER_SUCCESS_CODE'),
+            ORDER_DATA_SUCCESS_CODE               => trans($key.'.ORDER_DATA_SUCCESS_CODE'),
+            ORDER_DATA_REQUIRED_CODE              => trans($key.'.ORDER_DATA_REQUIRED_CODE'),
+            ORDER_DATA_SUBMIT_CODE                => trans($key.'.ORDER_DATA_SUBMIT_CODE'),
+            ORDER_DATA_NOT_FOUND_CODE             => trans($key.'.ORDER_DATA_NOT_FOUND_CODE'),
+            PACKAGES_SUCCESS_CODE                 => trans($key.'.PACKAGES_SUCCESS_CODE'),
+            PACKAGES_EMPTY_CODE                   => trans($key.'.PACKAGES_EMPTY_CODE'),
+            ICCID_REQUIRED_CODE                   => trans($key.'.ICCID_REQUIRED_CODE'),
+            ICCID_EXISTS_CODE                     => trans($key.'.ICCID_EXISTS_CODE'),
+            USAGE_PACKAGE_FAILED_CODE             => trans($key.'.USAGE_PACKAGE_FAILED_CODE'),
+            USAGE_PACKAGE_SUCCESS_CODE            => trans($key.'.USAGE_PACKAGE_SUCCESS_CODE'),
+            GET_QR_SUCCESS_CODE                   => trans($key.'.GET_QR_SUCCESS_CODE'),
+            ORDER_DATA_IS_SHARE_CODE              => trans($key.'.ORDER_DATA_IS_SHARE_CODE'),
+            ORDER_DATA_USER_IS_SHARE_CODE         => trans($key.'.ORDER_DATA_USER_IS_SHARE_CODE'),
         ];
 
         return ($code == ALL_MESSAGE_CODE) ? $statusTexts: $statusTexts[$code] ?? MESSAGE_NOT_FOUND_CODE;

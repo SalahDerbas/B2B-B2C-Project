@@ -128,7 +128,14 @@ return [
         ],
 
         // ============================================================================
-        'B2B_LOGGER' => [
+        'B2C-API' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/b2c.log'),
+            'level' => 'debug',
+            'log_max_files' => 180,
+            'days' => 180
+        ],
+        'B2B-API' => [
             'driver' => 'daily',
             'path' => storage_path('logs/b2b.log'),
             'level' => 'debug',
