@@ -49,7 +49,7 @@ Route::prefix('user')->group( function () {
 
     /*
     |--------------------------------------------------------------------------
-    | Content Routes API For HR Project
+    | Content Routes API For B2C API
     |--------------------------------------------------------------------------
     * @author Salah Derbas
 */
@@ -149,17 +149,17 @@ Route::group(['middleware' => ['auth:api' ]],function () {
 
                 Route::post('pay',                [SubmitController::class, 'pay'])->name('api.user.order.pay');
                 Route::post('check-promocode',    [SubmitController::class, 'checkPromocode'])->name('api.user.order.checkPromocode');
-                Route::post('pay-promocode',      [SubmitController::class, 'payWithPromocode'])->name('api.user.order.payWithPromocode');
-
             });
+
+            Route::post('order-data',             [SubmitController::class, 'orderData'])->name('api.user.order.orderData');
 
             Route::prefix('packages')->group( function () {
 
                 Route::get('',                [StatusPackageController::class, 'index'])->name('api.user.order.packages');
-                Route::get('usage',           [StatusPackageController::class, 'usage'])->name('api.user.order.packages.usage');
+                Route::post('usage',          [StatusPackageController::class, 'usage'])->name('api.user.order.packages.usage');
 
-                Route::get('get-qr',          [SharePackageController::class, 'getQR'])->name('api.user.order.packages.getQR');
-                Route::get('reedem-qr',       [SharePackageController::class, 'reedemQR'])->name('api.user.order.packages.reedemQR');
+                Route::post('get-qr',         [SharePackageController::class, 'getQR'])->name('api.user.order.packages.getQR');
+                Route::post('reedem-qr',      [SharePackageController::class, 'reedemQR'])->name('api.user.order.packages.reedemQR');
 
             });
 

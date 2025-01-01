@@ -16,8 +16,9 @@ class PaymentSeeder extends Seeder
         DB::table('payments')->delete();
 
         DB::table('payments')->insert([
-            ['name' => 'Visa Credit Card', 'status' => true  , 'photo' => env('APP_URL').'/Payment/Visa.png'],
-            ['name' => 'Zain Cash',        'status' => true  , 'photo' => env('APP_URL').'/Payment/ZainCash.png'],
+            ['name' => 'Stripe',           'status' => true  , 'photo' => env('APP_URL').'/Payment/Stripe.png'  , 'created_at' => now(), 'updated_at'  => now() ],
+            ['name' => 'Visa Credit Card', 'status' => true  , 'photo' => env('APP_URL').'/Payment/Visa.png'    , 'created_at' => now(), 'updated_at'  => now() ],
+            ['name' => 'Zain Cash',        'status' => true  , 'photo' => env('APP_URL').'/Payment/ZainCash.png', 'created_at' => now(), 'updated_at'  => now() ],
         ]);
     }
 }
