@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+
+Route::prefix('b2c')->group(base_path('routes/API/V2/b2c/index.php'));
+
+
+Route::prefix('b2b')->group(base_path('routes/API/V2/b2b/index.php'));

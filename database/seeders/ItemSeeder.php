@@ -20,8 +20,32 @@ class ItemSeeder extends Seeder
         }
 
         $this->updateAndDeleteCategories();
+        $this->addItemsToPayment(4);
+
     }
 
+    private function addItemsToPayment($payment_id)
+    {
+        $ItemSources = DB::table('item_sources')->get();
+        foreach($ItemSources as $ItemSource)
+        {
+            $operators = DB::table('operators')->where('payment_id', $payment_id)->get();
+            $final_price = (float) $ItemSource->cost_price;
+            foreach ($operators as $operator) {
+                $final_price += ($operator->type_id == 1) ? ($operator->value) : ($operator->value * $final_price);
+            }
+            DB::table('payment_prices')->insert([
+                'item_source_id' => $ItemSource->id,
+                'payment_id'     => $payment_id,
+                'final_price'    => $final_price,
+                'created_at'     => now(),
+                'updated_at'     => now(),
+            ]);
+
+        }
+        $this->command->info("Data successfully seeded for payment_id: $payment_id");
+
+    }
 
     private function seedItemsByType($type)
     {

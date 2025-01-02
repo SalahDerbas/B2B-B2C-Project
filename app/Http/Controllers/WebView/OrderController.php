@@ -38,15 +38,15 @@ class OrderController extends Controller
                 return redirect()->route('order.callBack.failed');
 
             $order = Order::findOrFail($response['orderID']);
-            updateStatusOrder($response['orderID'] , 'status_order' , getStatusID('U-StatusOrder'   ,'SO-charged' ));
+            updateStatusOrder($response['orderID'] , 'status_order' , getStatusID('U-StatusOrder'   ,'SO-charged' ) , 'B2C-API');
             $submitOrder =  $this->sourcePackage->submitOrder($order['item_source_id']);
 
             if(!$submitOrder['success'] ){
-                updateStatusOrder($response['orderID'] , 'status_order' , getStatusID('U-StatusOrder'   ,'SO-failed' ));
+                updateStatusOrder($response['orderID'] , 'status_order' , getStatusID('U-StatusOrder'   ,'SO-failed' ) , 'B2C-API');
                 return redirect()->route('order.callBack.failed');
             }
 
-            updateOrderFinal($response['orderID'] , $submitOrder['data']);
+            updateOrderFinal($response['orderID'] , $submitOrder['data'] , 'B2C-API');
             return redirect()->route('order.callBack.success' ,['order_id' =>  encryptWithKey($response['orderID'] , 'B2B-B2C')]);
 
         } catch (\Exception $e) {

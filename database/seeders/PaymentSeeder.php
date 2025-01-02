@@ -19,6 +19,7 @@ class PaymentSeeder extends Seeder
             ['name' => 'Stripe',           'status' => true  , 'photo' => env('APP_URL').'/Payment/Stripe.png'  , 'created_at' => now(), 'updated_at'  => now() ],
             ['name' => 'Visa Credit Card', 'status' => true  , 'photo' => env('APP_URL').'/Payment/Visa.png'    , 'created_at' => now(), 'updated_at'  => now() ],
             ['name' => 'Zain Cash',        'status' => true  , 'photo' => env('APP_URL').'/Payment/ZainCash.png', 'created_at' => now(), 'updated_at'  => now() ],
+            ['name' => 'B2B User',         'status' => true  , 'photo' => NULL                                  , 'created_at' => now(), 'updated_at'  => now() ],
         ]);
     }
 }

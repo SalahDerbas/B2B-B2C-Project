@@ -35,8 +35,8 @@ if (!function_exists('getIDLookups')) {
 *  This function retrieves the ID of a lookup record by key.
 * @author Salah Derbas
 */
-if (!function_exists('getValueLookups')) {
-    function getValueLookups($id)
+if (!function_exists('getValueByIDLookups')) {
+    function getValueByIDLookups($id)
     {
         return Lookup::findOrFail($id)->value;
     }
@@ -158,9 +158,9 @@ if (!function_exists("LoggingFile")) {
  * @author Salah Derbas
 */
 if (!function_exists("insertOrderInitial")) {
-    function insertOrderInitial($data)
+    function insertOrderInitial($data , $LogName)
     {
-        LoggingFile('B2C-API' , '[pay]--START_PAY_ITEM--' ,['ip' => getClientIP() , 'user_id' => Auth::id() ,'item_source_id' => $data['item_source_id'] , 'payment_id' => $data['payment_id'] ]);
+        LoggingFile($LogName , '[pay]--START_PAY_ITEM--' ,['ip' => getClientIP() , 'user_id' => Auth::id() ,'item_source_id' => $data['item_source_id'] , 'payment_id' => $data['payment_id'] ]);
 
         $dataOrder = PaymentPrice::where(['item_source_id' => $data['item_source_id'] , 'payment_id' => $data['payment_id']])
         ->with(['getPayment', 'getItemSource' , 'getItemSource.getItem.getSubCategory' , 'getItemSource.getSource'])->first();
@@ -184,7 +184,7 @@ if (!function_exists("insertOrderInitial")) {
             'updated_at'        => Carbon::now(),
         ]);
 
-        LoggingFile('B2C-API' , '[pay]---CREATE_ORDER_ID--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'orderID' => $orderID  ]);
+        LoggingFile( $LogName , '[pay]---CREATE_ORDER_ID--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'orderID' => $orderID  ]);
         return $orderID;
     }
 }
@@ -197,9 +197,9 @@ if (!function_exists("insertOrderInitial")) {
  * @author Salah Derbas
 */
 if (!function_exists("updateStatusOrder")) {
-    function updateStatusOrder($orderID , $keyStatus , $valueStatus)
+    function updateStatusOrder($orderID , $keyStatus , $valueStatus , $LogName)
     {
-        LoggingFile('B2C-API' , '---UPDATE_STATUS_ORDER--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'orderID' => $orderID , $keyStatus => $valueStatus ]);
+        LoggingFile( $LogName , '---UPDATE_STATUS_ORDER--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'orderID' => $orderID , $keyStatus => $valueStatus ]);
         Order::findOrFail($orderID)->update([$keyStatus => $valueStatus]);
     }
 }
@@ -211,10 +211,10 @@ if (!function_exists("updateStatusOrder")) {
  * @author Salah Derbas
 */
 if (!function_exists("updateOrderFinal")) {
-    function updateOrderFinal($orderID , $order_data)
+    function updateOrderFinal($orderID , $order_data , $LogName)
     {
         $statusOrderID = getStatusID('U-StatusOrder'   ,'SO-success' );
-        LoggingFile('B2C-API' , '---UPDATE_ORDER_FINAL--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'orderID' => $orderID , 'order_data'  => $order_data , 'iccid'  => $order_data['sims'][0]['iccid']  ,'status_order'   => $statusOrderID ]);
+        LoggingFile( $LogName , '---UPDATE_ORDER_FINAL--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'orderID' => $orderID , 'order_data'  => $order_data , 'iccid'  => $order_data['sims'][0]['iccid']  ,'status_order'   => $statusOrderID ]);
 
         Order::findOrFail($orderID)->update([
             'order_data'     => json_encode($order_data)   ,
@@ -252,5 +252,21 @@ if (!function_exists("decryptWithKey")) {
         $iv = substr($encryptedData, 0, $ivLength);
 
         return openssl_decrypt(substr($encryptedData, $ivLength) , 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+    }
+}
+
+/**
+ *
+ *
+ * @author Salah Derbas
+*/
+if (!function_exists("generateUUID")) {
+    function generateUUID()
+    {
+        $bytes = random_bytes(16);
+        $bytes[6] = chr((ord($bytes[6]) & 0x0f) | 0x40); // Set version to 4
+        $bytes[8] = chr((ord($bytes[8]) & 0x3f) | 0x80); // Set variant
+
+        return vsprintf('%02x%02x-%02x-%02x-%02x-%02x%02x%02x', str_split(bin2hex($bytes), 2));
     }
 }

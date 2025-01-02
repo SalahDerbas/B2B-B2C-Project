@@ -60,7 +60,9 @@ class AiraloSourceService extends BaseIntegrationService implements SourcePackag
 
         $response = $this->buildRequest('POST', '/orders', $data);
 
-        LoggingFile('B2C-API' , '[submitOrder]---RESPONSE_submitOrder--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'data' => $data , 'RESPONSE' => $response->getContent()  ]);
+        $LogName = (Auth::user()->type == 1) ? 'B2C-API' :'B2B-API';
+
+        LoggingFile( $LogName , '[submitOrder]---RESPONSE_submitOrder--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'data' => $data , 'RESPONSE' => $response->getContent()  ]);
 
         if($response->getData(true)['success'])
             return ['success' => true, 'data' =>  $response->getData(true)['data']['data'] ];
@@ -96,7 +98,9 @@ class AiraloSourceService extends BaseIntegrationService implements SourcePackag
 
         $response = $this->buildRequest('GET', '/sims/' .$iccid. '/usage' );
 
-        LoggingFile('B2C-API' , '[usagePackage]---RESPONSE_usagePackage--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'RESPONSE' => $response->getContent()  ]);
+        $LogName = (Auth::user()->type == 1) ? 'B2C-API' :'B2B-API';
+
+        LoggingFile( $LogName , '[usagePackage]---RESPONSE_usagePackage--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'RESPONSE' => $response->getContent()  ]);
 
         if($response->getData(true)['success'])
             return ['success' => true, 'data' =>  $response->getData(true)['data']['data'] ];

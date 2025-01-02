@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Resources\API\V1\b2c\Order;
+namespace App\Http\Resources\API\V1\b2b\Order;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\API\V1\b2c\Order\OrderResource;
-use App\Http\Resources\API\V1\b2c\Home\Item\ItemResource;
-
-
+use App\Http\Resources\API\V1\b2b\Order\OrderResource;
+use App\Http\Resources\API\V1\b2b\Home\Item\ItemResource;
 
 class PackagesResouce extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -43,4 +42,5 @@ class PackagesResouce extends JsonResource
         ];
 
     }
+
 }
