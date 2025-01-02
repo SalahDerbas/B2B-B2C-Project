@@ -13,9 +13,3 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::prefix('b2c')->group(base_path('routes/API/V1/b2c/index.php'));
-
-
-Route::prefix('b2b')->group(base_path('routes/API/V1/b2b/index.php'));
-

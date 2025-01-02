@@ -42,6 +42,10 @@ return [
     'USAGE_PACKAGE_FAILED_CODE'               => 'Package usage failed.',
     'USAGE_PACKAGE_SUCCESS_CODE'              => 'Package used successfully.',
     'GET_QR_SUCCESS_CODE'                     => 'QR code generated successfully.',
+    // ==================================================================
+    'GET_B2B_BALANCE_CODE'                    => 'GET_B2B_BALANCE_CODE',
+    'PAY_SUBMIT_FAILED_CODE'                  => 'PAY_SUBMIT_FAILED_CODE',
+    'PAY_SUBMIT_SUCCESS_CODE'                 => 'PAY_SUBMIT_SUCCESS_CODE',
 
     // ------------------------------------------------------------
     // Validation code
@@ -102,6 +106,22 @@ return [
     'ICCID_REQUIRED_CODE'                      => 'ICCID is required.',
     'ORDER_DATA_IS_SHARE_CODE'                 => 'Order data indicates sharing.',
     'ORDER_DATA_USER_IS_SHARE_CODE'            => 'Order data shows the user is sharing.',
+
+// =========================================================
+    'CLIENT_ID_REQUIRED_CODE'                  => 'CLIENT_ID_REQUIRED_CODE',
+    'CLIENT_SECRET_REQUIRED_CODE'              => 'CLIENT_SECRET_REQUIRED_CODE',
+    'CLIENT_SECRET_EXISTS_CODE'                => 'CLIENT_SECRET_EXISTS_CODE',
+    'CLIENT_ID_EXISTS_CODE'                    => 'CLIENT_ID_EXISTS_CODE',
+    'RESET_NEW_PASSWOED_CODE'                  => 'RESET_NEW_PASSWOED_CODE',
+    'BALANCE_LESS_AMOUNT_CODE'                 => 'BALANCE_LESS_AMOUNT_CODE',
+
+
+
+
+
+
+
+
 
 
     // ------------------------------------------------------------

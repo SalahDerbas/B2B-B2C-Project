@@ -33,7 +33,7 @@ class SubmitController extends Controller
     public function pay(SubmitRequest $request)
     {
         try{
-            $orderID    = insertOrderInitial($request);
+            $orderID    = insertOrderInitial($request , 'B2C-API');
             $response = $this->paymentGateway->sendPayment($request["payment_request"] , $orderID);
             if(!$response['success'])
                 return responseSuccess($response['data'], getStatusText(PAYMENT_METHOD_FAILED_CODE)  , PAYMENT_METHOD_FAILED_CODE );
