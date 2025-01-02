@@ -8,7 +8,6 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-use App\Rules\API\V1\b2c\Order\PaymentRequestRule;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PaymentPrice;
 use App\Models\PromoCode;

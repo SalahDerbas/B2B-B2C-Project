@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\API\V1\b2c\Home\Category;
+namespace App\Http\Controllers\API\V1\b2b\Home\Category;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Resources\API\V1\b2c\Home\Category\SubCategoryResource;
-use App\Http\Resources\API\V1\b2c\Home\Category\CategoryResource;
-use App\Http\Resources\API\V1\b2c\Home\Item\ItemsResource;
+use App\Http\Resources\API\V1\b2b\Home\Category\SubCategoryResource;
+use App\Http\Resources\API\V1\b2b\Home\Category\CategoryResource;
+use App\Http\Resources\API\V1\b2b\Home\Item\ItemsResource;
 
 use App\Models\Category;
 use App\Models\Item;
 
-
-
 class CategoryController extends Controller
 {
-
     /**
      * Display a listing of the main categories.
      *
@@ -39,7 +36,7 @@ class CategoryController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(int $id)
     {
         try{
             $data = Category::where(['id' => $id , 'status' =>  1])->first();
@@ -114,7 +111,6 @@ class CategoryController extends Controller
             return responseError($e->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY ,DATA_ERROR_CODE);
         }
     }
-
 
 
 

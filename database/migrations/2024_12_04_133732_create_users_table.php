@@ -30,6 +30,9 @@ return new class extends Migration
             $table->datetime('last_login')->nullable();
             $table->boolean('status')->default(1);
             $table->boolean('enable_notification')->default(true);
+            $table->string('client_id', 36)->nullable()->unique();
+            $table->string('client_secret', 36)->nullable();
+            $table->double('b2b_balance', 10, 2)->default(0.0);
             $table->string('ip')->nullable();
             $table->unsignedBigInteger('payment_id')->nullable();
             $table->foreign('payment_id')->references('id')->on('payments')->onDelete('cascade');

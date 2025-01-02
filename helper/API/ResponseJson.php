@@ -41,7 +41,9 @@ define('PACKAGES_EMPTY_CODE'                  , 1035);
 define('USAGE_PACKAGE_FAILED_CODE'            , 1036);
 define('USAGE_PACKAGE_SUCCESS_CODE'           , 1037);
 define('GET_QR_SUCCESS_CODE'                  , 1038);
-
+define('GET_B2B_BALANCE_CODE'                 , 1039);
+define('PAY_SUBMIT_FAILED_CODE'               , 1040);
+define('PAY_SUBMIT_SUCCESS_CODE'              , 1041);
 
 
 
@@ -103,6 +105,11 @@ define('ICCID_EXISTS_CODE'                    , 4075);
 define('ICCID_REQUIRED_CODE'                  , 4076);
 define('ORDER_DATA_IS_SHARE_CODE'             , 4077);
 define('ORDER_DATA_USER_IS_SHARE_CODE'        , 4078);
+define('CLIENT_SECRET_REQUIRED_CODE'          , 4079);
+define('CLIENT_ID_REQUIRED_CODE'              , 4080);
+define('CLIENT_SECRET_EXISTS_CODE'            , 4081);
+define('CLIENT_ID_EXISTS_CODE'                , 4082);
+define('BALANCE_LESS_AMOUNT_CODE'             , 4083);
 
 
 
@@ -415,6 +422,14 @@ if (!function_exists('getStatusText')) {
             GET_QR_SUCCESS_CODE                   => trans($key.'.GET_QR_SUCCESS_CODE'),
             ORDER_DATA_IS_SHARE_CODE              => trans($key.'.ORDER_DATA_IS_SHARE_CODE'),
             ORDER_DATA_USER_IS_SHARE_CODE         => trans($key.'.ORDER_DATA_USER_IS_SHARE_CODE'),
+            CLIENT_ID_REQUIRED_CODE               => trans($key.'.CLIENT_ID_REQUIRED_CODE'),
+            CLIENT_SECRET_REQUIRED_CODE           => trans($key.'.CLIENT_SECRET_REQUIRED_CODE'),
+            CLIENT_SECRET_EXISTS_CODE             => trans($key.'.CLIENT_SECRET_EXISTS_CODE'),
+            CLIENT_ID_EXISTS_CODE                 => trans($key.'.CLIENT_ID_EXISTS_CODE'),
+            GET_B2B_BALANCE_CODE                  => trans($key.'.GET_B2B_BALANCE_CODE'),
+            BALANCE_LESS_AMOUNT_CODE              => trans($key.'.BALANCE_LESS_AMOUNT_CODE'),
+            PAY_SUBMIT_FAILED_CODE                => trans($key.'.PAY_SUBMIT_FAILED_CODE'),
+            PAY_SUBMIT_SUCCESS_CODE               => trans($key.'.PAY_SUBMIT_SUCCESS_CODE'),
         ];
 
         return ($code == ALL_MESSAGE_CODE) ? $statusTexts: $statusTexts[$code] ?? MESSAGE_NOT_FOUND_CODE;
