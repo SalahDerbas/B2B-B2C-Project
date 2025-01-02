@@ -135,6 +135,162 @@ These routes require authentication via an API token.
 
 ---
 
+
+
+# B2B API Project
+
+This project provides a set of APIs to manage public user authentication, home data, and order management for B2C and B2B services.
+
+---
+
+## Routes
+
+### Public User Routes
+These routes are available without authentication.
+
+- **POST** `/user/login`  
+  **Description**: User login.  
+  **Controller**: `AuthController@login`  
+  **Route Name**: `api.b2b.user.login`
+
+- **POST** `/user/forget-password`  
+  **Description**: Initiate password reset process.  
+  **Controller**: `AuthController@forgetPassword`  
+  **Route Name**: `api.b2b.user.forget_password`
+
+- **POST** `/user/reset-password`  
+  **Description**: Reset user password.  
+  **Controller**: `AuthController@resetPassword`  
+  **Route Name**: `api.b2b.user.reset_password`
+
+- **POST** `/user/check-otp`  
+  **Description**: Validate OTP for the user.  
+  **Controller**: `AuthController@checkOtp`  
+  **Route Name**: `api.user.check_otp`
+
+- **POST** `/user/re-send-otp`  
+  **Description**: Resend OTP for verification.  
+  **Controller**: `AuthController@resendOtp`  
+  **Route Name**: `api.user.resend_otp`
+
+---
+
+### Authenticated User Routes
+These routes require API token-based authentication.
+
+#### Home Routes
+- **GET** `/home/search/{input}`  
+  **Description**: Search for items or categories.  
+  **Controller**: `HomeController@search`  
+  **Route Name**: `api.b2b.home.search`
+
+##### Category Endpoints
+- **GET** `/home/category`  
+  **Description**: List all categories.  
+  **Controller**: `CategoryController@index`  
+  **Route Name**: `api.b2b.home.category.index`
+
+- **GET** `/home/category/regional`  
+  **Description**: Retrieve regional categories.  
+  **Controller**: `CategoryController@getRegional`  
+  **Route Name**: `api.b2b.home.category.getRegional`
+
+- **GET** `/home/category/local`  
+  **Description**: Retrieve local categories.  
+  **Controller**: `CategoryController@getLocal`  
+  **Route Name**: `api.b2b.home.category.getLocal`
+
+- **GET** `/home/category/global`  
+  **Description**: Retrieve global categories.  
+  **Controller**: `CategoryController@getGlobal`  
+  **Route Name**: `api.b2b.home.category.getGlobal`
+
+- **GET** `/home/category/{id}`  
+  **Description**: Retrieve details of a specific category.  
+  **Controller**: `CategoryController@show`  
+  **Route Name**: `api.b2b.home.category.show`
+
+##### Item Endpoints
+- **GET** `/home/items/{sub_category_id}`  
+  **Description**: List items under a sub-category.  
+  **Controller**: `ItemController@index`  
+  **Route Name**: `api.b2b.home.items.index`
+
+- **GET** `/home/items/show/{id}`  
+  **Description**: Retrieve details of a specific item.  
+  **Controller**: `ItemController@show`  
+  **Route Name**: `api.b2b.home.items.show`
+
+---
+
+#### User Routes
+- **GET** `/user/get-profile`  
+  **Description**: Fetch the authenticated user's profile.  
+  **Controller**: `AuthController@getProfile`  
+  **Route Name**: `api.b2b.user.get_profile`
+
+- **GET** `/user/get-balance`  
+  **Description**: Fetch the authenticated user's balance.  
+  **Controller**: `AuthController@getBalance`  
+  **Route Name**: `api.b2b.user.get_balance`
+
+- **GET** `/user/refresh-token`  
+  **Description**: Refresh the user's API token.  
+  **Controller**: `AuthController@refreshToken`  
+  **Route Name**: `api.b2b.user.refresh_token`
+
+- **GET** `/user/logout`  
+  **Description**: Logout the authenticated user.  
+  **Controller**: `AuthController@logout`  
+  **Route Name**: `api.b2b.user.logout`
+
+---
+
+#### Order Routes
+##### Submit Order
+- **POST** `/user/order/submit-order/pay`  
+  **Description**: Submit payment for an order.  
+  **Controller**: `SubmitController@pay`  
+  **Route Name**: `api.b2b.user.order.pay`
+
+- **POST** `/user/order/order-data`  
+  **Description**: Fetch order details.  
+  **Controller**: `SubmitController@orderData`  
+  **Route Name**: `api.b2b.user.order.orderData`
+
+##### Packages
+- **GET** `/user/order/packages`  
+  **Description**: List available packages.  
+  **Controller**: `StatusPackageController@index`  
+  **Route Name**: `api.b2b.user.order.packages`
+
+- **POST** `/user/order/packages/usage`  
+  **Description**: Submit package usage details.  
+  **Controller**: `StatusPackageController@usage`  
+  **Route Name**: `api.b2b.user.order.packages.usage`
+
+- **POST** `/user/order/packages/get-qr`  
+  **Description**: Generate a QR code for a package.  
+  **Controller**: `SharePackageController@getQR`  
+  **Route Name**: `api.b2b.user.order.packages.getQR`
+
+- **POST** `/user/order/packages/reedem-qr`  
+  **Description**: Redeem a QR code.  
+  **Controller**: `SharePackageController@reedemQR`  
+  **Route Name**: `api.b2b.user.order.packages.reedemQR`
+
+---
+
+
+
+
+
+
+
+
+
+
+
 # Order API Project
 
 This project contains a set of APIs related to order processing. It includes various callback routes to handle success and failure scenarios.
