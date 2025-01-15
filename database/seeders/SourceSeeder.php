@@ -16,7 +16,7 @@ class SourceSeeder extends Seeder
         DB::table('sources')->delete();
 
         DB::table('sources')->insert([
-            ['name' => 'Airalo' , 'photo' => env('APP_URL').'/Source/Airalo.png', 'created_at' => now(), 'updated_at'  => now()],
+            ['name' => 'Airalo' , 'photo' => env('APP_URL').'assets/Source/Airalo.png', 'created_at' => now(), 'updated_at'  => now()],
         ]);
 
     }

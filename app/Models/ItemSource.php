@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class ItemSource extends Model
 {
@@ -29,6 +30,11 @@ class ItemSource extends Model
     public function getSource()
     {
         return $this->hasOne(Source::class, 'id', 'source_id');
+    }
+
+    public function getPaymentPriceB2b()
+    {
+        return $this->hasOne(PaymentPrice::class, 'item_source_id')->where('payment_id', Auth::user()->payment_id);
     }
 
 }

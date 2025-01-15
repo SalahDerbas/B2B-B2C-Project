@@ -15,7 +15,6 @@ class CheckIfAuthenticated
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd(1212121);
         return $next($request);
     }
 }

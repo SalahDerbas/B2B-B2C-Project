@@ -34,7 +34,7 @@ class SubmitController extends Controller
     {
         try{
             $orderID    = insertOrderInitial($request , 'B2C-API');
-            $response = $this->paymentGateway->sendPayment($request["payment_request"] , $orderID);
+            $response = $this->paymentGateway->sendPayment($request["payment_request"] , $orderID , 'Order');
             if(!$response['success'])
                 return responseSuccess($response['data'], getStatusText(PAYMENT_METHOD_FAILED_CODE)  , PAYMENT_METHOD_FAILED_CODE );
 
