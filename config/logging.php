@@ -142,6 +142,14 @@ return [
             'log_max_files' => 180,
             'days' => 180
         ],
+        'App-API' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/app.log'),
+            'level' => 'debug',
+            'log_max_files' => 180,
+            'days' => 180
+        ],
+
         'SOURCES_MONTHLY' => [
             'driver' => 'single',
             'path' => storage_path('logs/sources_monthly.log'),

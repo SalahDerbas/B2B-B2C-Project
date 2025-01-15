@@ -6,15 +6,23 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "andreaselia/laravel-api-to-postman": "^2.0",
+        "barryvdh/laravel-dompdf": "^3.0",
         "laravel/framework": "^11.0",
         "laravel/passport": "^12.3",
         "laravel/tinker": "^2.9",
-        "opcodesio/log-viewer": "^3.12"
+        "laravel/ui": "^4.6",
+        "livewire/livewire": "*",
+        "maatwebsite/excel": "^3.1",
+        "opcodesio/log-viewer": "^3.14",
+        "yajra/laravel-datatables-buttons": "*",
+        "yajra/laravel-datatables-editor": "*",
+        "yajra/laravel-datatables-oracle": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
-        "laravel/sail": "^1.26",
+        "laravel/sail": "*",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
         "phpunit/phpunit": "^10.5",

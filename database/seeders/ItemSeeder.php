@@ -80,8 +80,11 @@ class ItemSeeder extends Seeder
             $plan_type = $data['operators'][0]['plan_type'];
 
             $coverages = array_map(function ($country) {
+                $countryLocal = DB::table('countries')->where('code' , $country['name'])->first();
                 return [
                     'country_code' => $country['name'],
+                    'country'      => $countryLocal->name_en ?? NULL,
+                    'flag'         => $countryLocal->flag    ?? NULL,
                     'networks'     => array_map(function ($network) {
                         return ['name' => $network['name']];
                     }, $country['networks']),
@@ -107,6 +110,7 @@ class ItemSeeder extends Seeder
                     'source_id'     => $source_id,
                     'status'        => True,
                     'cost_price'    => $package['net_price'],
+                    'retail_price'  => $package['price'],
                     'created_at'    => now(),
                     'updated_at'    => now(),
                 ]);

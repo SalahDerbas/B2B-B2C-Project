@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
             $table->double('cost_price', 10, 5);
+            $table->double('retail_price', 10, 5);
             $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
