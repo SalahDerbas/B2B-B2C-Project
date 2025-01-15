@@ -1,5 +1,6 @@
-@extends('errors::minimal')
+@extends('errors.layout')
 
-@section('title', __('Service Unavailable'))
-@section('code', '503')
-@section('message', __('Service Unavailable'))
+@section('error_title', 'Service Unavailable')
+@section('error_code', '429')
+@section('error_message', 'Service Unavailable')
+@section('error_description', 'Sorry, Service Unavailable.')

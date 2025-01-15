@@ -6,8 +6,21 @@ use App\Http\Controllers\API\Message\MessageController;
 use App\Http\Controllers\API\Lookup\LookupController;
 
 
+/*
+|--------------------------------------------------------------------------
+| Group of v1 API Routes
+|--------------------------------------------------------------------------
+* @author Salah Derbas
+*/
 Route::prefix('v1')->group(base_path('routes/API/V1/index.php'));
 
+
+/*
+|--------------------------------------------------------------------------
+| Group of v2 API Routes
+|--------------------------------------------------------------------------
+* @author Salah Derbas
+*/
 Route::prefix('v2')->group(base_path('routes/API/V2/index.php'));
 
 

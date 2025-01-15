@@ -41,7 +41,7 @@ class SubmitController extends Controller
             $submitOrder =  $this->sourcePackage->submitOrder( $request['item_source_id'] );
 
             $data  = ['order_id' =>  encryptWithKey( $orderID , 'B2B-B2C')];
-            if($submitOrder['success'] ){
+            if(!$submitOrder['success'] ){
                 updateStatusOrder($orderID , 'status_order' , getStatusID('U-StatusOrder'   ,'SO-failed' ) , 'B2B-API');
                 return responseSuccess( $data , getStatusText(PAY_SUBMIT_FAILED_CODE)  , PAY_SUBMIT_FAILED_CODE );
             }
