@@ -16,12 +16,6 @@ class Category extends Model
         return with(new static)->getTable();
     }
 
-    // public function hasSubCategories()
-    // {
-    //     return Category::where('sub_category_id', $this->id)->where('status', 1)->exists();
-    // }
-
-
     protected $appends = ['has_sub_category'];
 
     public function getHasSubCategoryAttribute()

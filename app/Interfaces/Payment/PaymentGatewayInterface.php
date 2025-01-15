@@ -13,7 +13,7 @@ interface PaymentGatewayInterface
      * @param \Illuminate\Http\Request $request The incoming HTTP request containing payment details.
      * @return array The response data indicating the result of the payment attempt.
      */
-    public function sendPayment(Request $request , $orderID);
+    public function sendPayment(Request $request , $id , $type);
 
 
 

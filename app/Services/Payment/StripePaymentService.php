@@ -32,15 +32,13 @@ class StripePaymentService extends BaseIntegrationService implements PaymentGate
      * @param Request $request The incoming HTTP request containing payment details.
      * @return array An array containing success status and redirection URL.
      */
-    public function sendPayment($request , $orderID): array
+    public function sendPayment($request , $id , $type): array
     {
-        $data     = $this->formatDataPayment($request , $orderID);
+        $data     = $this->formatDataPayment($request , $id , $type);
 
         $response = $this->buildRequest('POST', '/v1/checkout/sessions', $data, 'form_params');
 
-        $LogName = (Auth::user()->type == 1) ? 'B2C-API' :'B2B-API';
-
-        LoggingFile( $LogName , '[sendPayment]---RESPONSE_sendPayment--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'orderID' => $orderID, 'data' => $data , 'RESPONSE' => $response->getContent()  ]);
+        LoggingFile('App-API' , '[sendPayment]---RESPONSE_sendPayment--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'id' => $id, 'type' => $type, 'data' => $data , 'RESPONSE' => $response->getContent()  ]);
 
         if($response->getData(true)['success'])
             return ['success' => true, 'data' => $response->getData(true)['data']['url']];
@@ -56,19 +54,18 @@ class StripePaymentService extends BaseIntegrationService implements PaymentGate
      */
     public function callBack(Request $request): array
     {
-        $orderID = $request->get('orderID');
-        $session_id     = $request->get('session_id');
+        $id          = $request->get('id');
+        $type        = $request->get('type');
+        $session_id  = $request->get('session_id');
 
         $response   = $this->buildRequest('GET','/v1/checkout/sessions/'.$session_id);
 
-        $LogName = (Auth::user()->type == 1) ? 'B2C-API' :'B2B-API';
-
-        LoggingFile( $LogName , '[callBack]---RESPONSE_callBack--' ,['ip' => getClientIP() , 'callback_response' => $request->all() , 'orderID' => $orderID , 'session_id' => $session_id , 'response' =>$response  ]);
+        LoggingFile( 'App-API' , '[callBack]---RESPONSE_callBack--' ,['ip' => getClientIP() , 'callback_response' => $request->all() , 'id' => $id , 'type' => $type , 'session_id' => $session_id , 'response' =>$response  ]);
 
         if($response->getData(true)['success'] && $response->getData(true)['data']['payment_status'] === 'paid')
-            return ['success' => true , 'orderID'  =>  $orderID ];
+            return ['success' => true , 'id'  =>  $id , 'type' => $type];
 
-        return ['success' => false , 'orderID'  =>  $orderID ];
+        return ['success' => false , 'id'  =>  $id , 'type' => $type];
 
     }
 
@@ -78,10 +75,10 @@ class StripePaymentService extends BaseIntegrationService implements PaymentGate
      * @param Request $request The incoming HTTP request containing payment details.
      * @return array The formatted payment data to be sent to Stripe.
      */
-    public function formatDataPayment($request , $orderID): array
+    public function formatDataPayment($request , $id , $type): array
     {
         return [
-            "success_url" => env("APP_URL").'/webview/order/callback?session_id={CHECKOUT_SESSION_ID}&orderID='. $orderID .'',
+            "success_url" => env("APP_URL").'webview/order/callback?session_id={CHECKOUT_SESSION_ID}&id='. $id .'&type='. $type .'',
             "line_items"  => [
                 [
                     "price_data" => [

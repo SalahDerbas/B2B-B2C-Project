@@ -12,6 +12,7 @@ use Database\Seeders\PromoCodeSeeder;
 use Database\Seeders\SourceSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ItemSeeder;
+use Database\Seeders\CountrySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PromoCodeSeeder::class);
         $this->call(SourceSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(CountrySeeder::class);
         $this->call(ItemSeeder::class);
     }
 }

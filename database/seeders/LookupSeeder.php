@@ -33,6 +33,11 @@ class LookupSeeder extends Seeder
             ['code' =>       'U-StatusOrder',      'key' => 'SO-failed'  ,         'value' => 'Failed' ],
             ['code' =>       'U-StatusOrder',      'key' => 'SO-charged' ,         'value' => 'Charged'],
 
+            ['code' =>       'U-StatusBilling',    'key' => 'SB-success' ,         'value' => 'Success'],
+            ['code' =>       'U-StatusBilling',    'key' => 'SB-failed'  ,         'value' => 'Failed' ],
+            ['code' =>       'U-StatusBilling',    'key' => 'SB-pending' ,         'value' => 'Pending'],
+            ['code' =>       'U-StatusBilling',    'key' => 'SB-start_payment' ,   'value' => 'Start-Payment'],
+
             ['code' =>       'U-StatusPackage',    'key' => 'SP-new' ,             'value' => 'New'],
             ['code' =>       'U-StatusPackage',    'key' => 'SP-current' ,         'value' => 'Current'],
             ['code' =>       'U-StatusPackage',    'key' => 'SP-archived' ,        'value' => 'Archived'],

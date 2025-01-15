@@ -41,8 +41,8 @@ Route::prefix('user')->group( function () {
     Route::post('login',               [AuthController::class, 'login'])->name('api.b2b.user.login');
     Route::post('forget-password',     [AuthController::class, 'forgetPassword'])->name('api.b2b.user.forget_password');
     Route::post('reset-password',      [AuthController::class, 'resetPassword'])->name('api.b2b.user.reset_password');
-    Route::post('check-otp' ,          [AuthController::class, 'checkOtp'])->name('api.user.check_otp');
-    Route::post('re-send-otp' ,        [AuthController::class, 'resendOtp'])->name('api.user.resend_otp');
+    Route::post('check-otp' ,          [AuthController::class, 'checkOtp'])->name('api.b2b.user.check_otp');
+    Route::post('re-send-otp' ,        [AuthController::class, 'resendOtp'])->name('api.b2b.user.resend_otp');
 
 });
 

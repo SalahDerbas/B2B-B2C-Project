@@ -5,8 +5,12 @@ use App\Models\Lookup;
 use Carbon\Carbon;
 use App\Models\PaymentPrice;
 use App\Models\Order;
+use App\Models\Billing;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+
+
+
 
 
 /**
@@ -67,7 +71,7 @@ if (!function_exists('handleFileUpload')) {
                 Storage::delete($oldPath);
         }
         $newPath = $file->store($path);
-        return env('APP_URL').'/storage/'.$newPath;
+        return env('APP_URL').'storage/'.$newPath;
 
     }
 }
@@ -110,6 +114,8 @@ if (!function_exists("getClientIP")) {
 
 
 
+
+
 /**
  * This function retrieves the ID of a status from the database based on a given code and key.
  * It uses the Lookup model to query for the matching record and returns the 'id' field.
@@ -142,7 +148,17 @@ if (!function_exists("getUserCountry")) {
     }
 }
 
-
+/**
+ * Logs a debug message to a specified log channel.
+ * This function ensures a consistent and simple way to log debug information
+ * to custom log files defined in your Laravel logging configuration.
+ *
+ * @param string $fileName The name of the log channel (defined in config/logging.php).
+ * @param string $name     A label or identifier for the log entry.
+ * @param array  $array    The data or details to log.
+ *
+ * @return void
+ */
 if (!function_exists("LoggingFile")) {
     function LoggingFile($fileName,$name, $array)
     {
@@ -204,6 +220,18 @@ if (!function_exists("updateStatusOrder")) {
     }
 }
 
+/**
+ * Function to update the status of an order by order ID.
+ *
+ * @author Salah Derbas
+*/
+if (!function_exists("updateStatusBilling")) {
+    function updateStatusBilling($billingID , $keyStatus , $valueStatus , $LogName)
+    {
+        LoggingFile( $LogName , '---UPDATE_STATUS_ORDER--' ,['ip' => getClientIP() , 'user_id' => Auth::id() , 'billingID' => $billingID , $keyStatus => $valueStatus ]);
+        Billing::findOrFail($billingID)->update([$keyStatus => $valueStatus]);
+    }
+}
 
 /**
  * Function to update Final of an order by order ID.
@@ -256,10 +284,14 @@ if (!function_exists("decryptWithKey")) {
 }
 
 /**
- *
+ * Generates a UUID (Universally Unique Identifier) version 4.
+ * A UUID is a 128-bit number used to uniquely identify information.
+ * This function ensures the UUID conforms to RFC 4122 specifications.
+ * The function checks if it already exists before declaring to avoid redeclaration errors.
  *
  * @author Salah Derbas
-*/
+ * @return string A UUID version 4 string in the format 8-4-4-4-12 (e.g., 550e8400-e29b-41d4-a716-446655440000).
+ */
 if (!function_exists("generateUUID")) {
     function generateUUID()
     {
@@ -268,5 +300,102 @@ if (!function_exists("generateUUID")) {
         $bytes[8] = chr((ord($bytes[8]) & 0x3f) | 0x80); // Set variant
 
         return vsprintf('%02x%02x-%02x-%02x-%02x-%02x%02x%02x', str_split(bin2hex($bytes), 2));
+    }
+}
+
+
+
+/**
+ * Handles API exceptions by returning custom responses based on the response status code.
+ * If the status code is not handled, it returns the original response.
+ * This function checks if it exists before declaring to avoid redeclaration errors.
+ *
+ * @author Salah Derbas
+ * @param \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response $response The response object to evaluate.
+ * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response The custom error response or the original response.
+ */
+if (!function_exists("ExceptionAPI")) {
+    function ExceptionAPI($response)
+    {
+        if ($response->getStatusCode() === 401)
+        return respondUnauthorized('Unauthorized');
+        if ($response->getStatusCode() === 403)
+            return respondForbidden('Forbidden');
+        if ($response->getStatusCode() === 404)
+            return respondNotFound('Not Found');
+        if ($response->getStatusCode() === 405)
+            return respondMethodAllowed('Method Not Allowed');
+        if ($response->getStatusCode() === 422)
+            return respondUnprocessableEntity('Unprocessable Entity');
+        if ($response->getStatusCode() === 429)
+            return respondTooManyRequest('Too Many Requests');
+        if ($response->getStatusCode() === 500)
+            return respondInternalError('Internal Server Error');
+
+        return $response;
+    }
+}
+
+
+
+/**
+ * Handles web exceptions by returning custom error views based on the response status code.
+ * If the status code is not handled, it returns the original response.
+ * This function checks if it exists before declaring to avoid redeclaration errors.
+ *
+ * @author Salah Derbas
+ * @param \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response $response The response object to evaluate.
+ * @return \Illuminate\Http\Response The custom error view or the original response.
+ */
+if (!function_exists("ExceptionWeb")) {
+    function ExceptionWeb($response)
+    {
+        if ($response->getStatusCode() === 401)
+            return response()->view('errors.401', [], 401);
+        if ($response->getStatusCode() === 403)
+            return response()->view('errors.403', [], 403);
+        if ($response->getStatusCode() === 404)
+            return response()->view('errors.404', [], 404);
+        if ($response->getStatusCode() === 405)
+            return response()->view('errors.405', [], 405);
+        if ($response->getStatusCode() === 422)
+            return response()->view('errors.422', [], 422);
+        if ($response->getStatusCode() === 429)
+            return response()->view('errors.429', [], 429);
+        if ($response->getStatusCode() === 500)
+            return response()->view('errors.500', [], 500);
+
+        return $response;
+    }
+}
+
+/**
+ * Generates a unique number ID based on the provided key and current date and time.
+ * This function checks if it exists before declaring to avoid redeclaration errors.
+ *
+ * @author Salah Derbas
+ * @param string $key A key to prefix the generated ID.
+ * @return string A unique identifier in the format: key--year--month--day--hour:minute:second.
+ */
+if (!function_exists('getNumberID')) {
+    function getNumberID($key)
+    {
+        $date = Carbon::now();
+       return $key.'--'.$date->year.'--'.$date->month.'--'.$date->day.'--'.$date->format('H:i:s');
+    }
+}
+
+/**
+ * Retrieves lookup data based on the provided code.
+ * This function checks if it exists before declaring to avoid redeclaration errors.
+ *
+ * @author Salah Derbas
+ * @param string $code The code for which to retrieve lookup data.
+ * @return \Illuminate\Support\Collection The collection of lookup data matching the code.
+ */
+if (!function_exists("getDataLookups")) {
+    function getDataLookups($code)
+    {
+        return Lookup::where(['code' => $code ])->get();
     }
 }

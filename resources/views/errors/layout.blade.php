@@ -1,53 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('error_title', 'Error Page')</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 
-        <title>@yield('title')</title>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f7f7f7;
+            color: #333;
+            text-align: center;
+        }
 
-            .full-height {
-                height: 100vh;
-            }
+        #error-container {
+            max-width: 600px;
+            padding: 20px;
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #ff6b6b;
+            letter-spacing: -5px;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .error-code span {
+            color: #333;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .error-message {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
 
-            .title {
-                font-size: 36px;
-                padding: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="title">
-                    @yield('message')
-                </div>
-            </div>
+        .error-description {
+            margin: 20px 0;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #fff;
+            background: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div id="error-container">
+        <div class="error-code">
+            @yield('error_code', '000')
         </div>
-    </body>
+        <div class="error-message">
+            @yield('error_message', 'Oops! Something went wrong')
+        </div>
+        <div class="error-description">
+            @yield('error_description', 'An unexpected error occurred. Please try again later.')
+        </div>
+    </div>
+</body>
 </html>
