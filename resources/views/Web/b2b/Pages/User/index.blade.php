@@ -44,7 +44,7 @@
                             </li>
                             <li class="list-group-item">
                                 <div class="d-flex justify-content-between">
-                                    <strong>B2B Balance:</strong><span class="badge badge-primary" style="font-size: 20px;">{{ number_format($user->b2b_balance, 2) }}$</span>
+                                    <strong>B2B Balance:</strong> <span class="badge bg-info" style="font-size: 25px;height: 33px;width: 50%;padding-top: 10px;">{{ number_format($user->b2b_balance, 2) }}$</span>
                                 </div>
                             </li>
                             <li class="list-group-item">

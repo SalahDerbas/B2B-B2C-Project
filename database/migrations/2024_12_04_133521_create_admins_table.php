@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->boolean('status')->default(1);
-            $table->string('code_auth')->nullable();
-            $table->datetime('expire_time')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

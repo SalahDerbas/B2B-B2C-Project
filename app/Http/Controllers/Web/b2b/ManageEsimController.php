@@ -46,7 +46,7 @@ class ManageEsimController extends Controller
     {
         try{
             $categoryId = request()->category_id;
-            return Excel::download(new EsimDataExport($categoryId), 'esim_data.xlsx');
+            return Excel::download(new EsimDataExport($categoryId), getFileName('esim_data').'.xlsx');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage() );
         }
@@ -80,7 +80,7 @@ class ManageEsimController extends Controller
     public function exportEsim($id)
     {
         try{
-            return Excel::download(new EsimExport($id), 'esim.xlsx');
+            return Excel::download(new EsimExport($id), getFileName('esim').'.xlsx');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage() );
         }

@@ -69,10 +69,10 @@
                                 <td>{{ $item->amount ?? 'N/A'                  }}</td>
                                 <td>{{ $item->getUser->email ?? 'N/A'          }}</td>
                                 <td>
-                                    <img src="{{$item->getPayment->photo}}" width="50" height="50"/>
+                                    <img src="{{$item->getPayment->photo}}" width="75" height="50"/>
                                 </td>
                                 <td>
-                                    <span class="badge badge-info" style="font-size: 20px;">{{ $item->getStatus->value ?? 'N/A'        }} </span>
+                                    <span class="badge bg-info" style="font-size: 25px;height: 33px;width: 100%;padding-top: 10px;">{{ $item->getStatus->value ?? 'N/A'        }} </span>
                                 </td>
                                 <td>{{ formatDate($item->created_at) ?? 'N/A'  }}</td>
                                 <td>{{ formatDate($item->updated_at) ?? 'N/A'  }}</td>

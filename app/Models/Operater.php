@@ -15,5 +15,9 @@ class Operater extends Model
     public static function getTableName() {
         return with(new static)->getTable();
     }
+    public function getType()
+    {
+        return $this->hasOne(Lookup::class, 'id', 'type_id');
+    }
 
 }

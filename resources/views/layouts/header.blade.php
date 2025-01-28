@@ -1,6 +1,7 @@
 <div id="pre-loader">
     <img src="{{ URL::asset('Web/Dashboard/assets/images/Logo-SD.png') }}" alt="">
 </div>
+
 <nav class="admin-header navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-left navbar-brand-wrapper">
         <img src="{{ URL::asset('Web/Dashboard/assets/images/Logo-SD.png') }}" alt="logo"><span style="margin-left: 10%;">@yield('title', 'Dashboard')</span>
@@ -21,22 +22,28 @@
             <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">
                 <img src="{{ URL::asset('Web/Dashboard/assets/images/user_icon.png') }}" alt="avatar">
-
-
             </a>
+
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header">
                     <div class="media">
                         <div class="media-body">
-                            <h5 class="mt-0 mb-0">{{ Auth::user()->name }}</h5>
-                            <span>{{ Auth::user()->email }}</span>
+                            <h5 class="mt-0 mb-0">{{ (Session::get('is_admin')) ? Auth::guard('admin')->user()->username : Auth::user()->name }}</h5>
+                            <span>{{ (Session::get('is_admin')) ? Auth::guard('admin')->user()->email : Auth::user()->email }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
+                @if (Session::get('is_admin'))
+                <a class="dropdown-item" href="{{ route('admin.auth.logout') }}"><i class="text-danger ti-unlock"></i> Logout </a>
+                @else
                 <a class="dropdown-item" href="{{ route('auth.logout') }}"><i class="text-danger ti-unlock"></i> Logout </a>
+                @endif
+
+                @if(!Session::get('is_admin'))
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('b2b.user.index') }}"><i class="bi bi-currency-dollar"></i> <span> B2b Balance : <strong> {{Auth::user()->b2b_balance}}$ </strong> </span></a>
+                <a class="dropdown-item" href="{{ route('b2b.user.index') }}"><i class="bi bi-currency-dollar"></i> <span> B2b Balance : <strong> {{is_null( Auth::user()) ? "" : Auth::user()->b2b_balance}}$ </strong> </span></a>
+                @endif
             </div>
         </li>
     </ul>

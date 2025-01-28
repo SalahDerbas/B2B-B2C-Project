@@ -4,11 +4,13 @@ namespace App\Http\Requests\Web\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\API\V1\b2c\Auth\UserIsDelete;
+use App\Rules\Web\admin\AdminIsDisable;
 
 class AuthRequest extends FormRequest
 {
     private const ROUTE_LOGIN              = 'auth.login';
     private const ROUTE_CHECK_OTP          = 'auth.checkOtp';
+    private const ROUTE_ADMIN_LOGIN        = 'admin.auth.loginAdmin';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -18,6 +20,17 @@ class AuthRequest extends FormRequest
         return true;
     }
 
+    private function loginAdminRequest()
+    {
+        return [
+            'rules'   =>  [
+                'email'            => ['required' , 'exists:admins,email' , 'email'] ,
+                'password'         => ['required'  , 'min:6' , 'max:12'],
+                'status'           => [new AdminIsDisable($this->email)],
+        ],
+    ];
+
+    }
     /**
      * Get the validation rules that apply to the login request.
      *
@@ -65,6 +78,7 @@ class AuthRequest extends FormRequest
         $data  = match ($route) {
                 self::ROUTE_LOGIN                => $this->loginRequest(),
                 self::ROUTE_CHECK_OTP            => $this->checkOtpRequest(),
+                self::ROUTE_ADMIN_LOGIN          => $this->loginAdminRequest(),
 
                 default => [ 'rules' => [], 'messages' => []  ]
         };

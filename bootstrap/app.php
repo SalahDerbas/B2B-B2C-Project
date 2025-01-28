@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             // \App\Http\Middleware\B2B::class,
+            // \App\Http\Middleware\Admin::class,
+
         ]);
 
         $middleware->api(prepend: [
@@ -25,11 +27,11 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->respond(function (Response $response ) {
-            // if ( request()->is('api/*') )
-            //     return ExceptionAPI($response);
-            // else
-                // return ExceptionWeb($response);
-            // return $response;
+            if ( request()->is('api/*') )
+                return ExceptionAPI($response);
+            else
+                return ExceptionWeb($response);
+            return $response;
         });
     })
     ->create();

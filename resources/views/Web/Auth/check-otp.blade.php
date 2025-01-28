@@ -10,14 +10,14 @@
 
     <div class="col align-items-center flex-col sign-in">
         @if($errors->has('error_two_factor'))
-        <div class="alert alert-danger">
-            {{ $errors->first('error_two_factor') }}
-        </div>
+            <div class="alert alert-danger">
+                {{ $errors->first('error_two_factor') }}
+            </div>
         @endif
         @if($errors->has('error_otp_finish'))
-        <div class="alert alert-danger">
-            {{ $errors->first('error_otp_finish') }}
-        </div>
+            <div class="alert alert-danger">
+                {{ $errors->first('error_otp_finish') }}
+            </div>
         @endif
         <div class="form-wrapper align-items-center">
 
@@ -44,12 +44,8 @@
                 </p>
             </div>
         </form>
-
-
         </div>
-        <div class="form-wrapper">
-
-        </div>
+        <div class="form-wrapper"></div>
     </div>
 </div>
 <div class="row content-row">

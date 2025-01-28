@@ -91,7 +91,7 @@ class ItemSeeder extends Seeder
                 ];
             }, $data['operators'][0]['coverages']);
             $coverages = json_encode($coverages);
-
+            $fixedID = getIDLookups('OT-fixed');
             foreach ($data['operators'][0]['packages'] as $package) {
                 $item_id = DB::table('items')->insertGetId([
                     'capacity'         => $package['data'],
@@ -118,7 +118,7 @@ class ItemSeeder extends Seeder
                 $operators = DB::table('operators')->where('payment_id', $payment_id)->get();
                 $final_price = (float) $package['net_price'];
                 foreach ($operators as $operator) {
-                    $final_price += ($operator->type_id == 1) ? ($operator->value) : ($operator->value * $final_price);
+                    $final_price += ($operator->type_id == $fixedID) ? ($operator->value) : ($operator->value * $final_price);
                 }
 
                 DB::table('payment_prices')->insert([

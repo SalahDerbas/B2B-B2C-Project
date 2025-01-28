@@ -65,7 +65,8 @@
                             <tr>
                                 <th> # </th>
                                 <th> Email </th>
-                                <th> Final Price </th>
+                                <th> Cost Price </th>
+                                <th> Retail Price </th>
                                 <th> ICCID </th>
                                 <th> Category </th>
                                 <th> Item </th>
@@ -84,6 +85,7 @@
                                     <td>{{ ($datas->currentPage() - 1) * $datas->perPage() + $loop->iteration }}</td>
                                     <td>{{ $item->email ?? 'N/A' }}</td>
                                     <td>${{ number_format($item->final_price  ,2 ) ?? 'N/A' }}</td>
+                                    <td>${{ number_format($item->retail_price  ,2 ) ?? 'N/A' }}</td>
                                     <td>{{ $item->iccid ?? 'N/A' }}</td>
                                     <td>{{ $item->getCategory->name ?? 'N/A' }}</td>
                                     <td>{{ '('.$item->getItem->capacity.')-('.$item->getItem->plan_type.')-('.$item->getItem->validaty.')' }}</td>

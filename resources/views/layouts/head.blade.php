@@ -21,4 +21,99 @@
     a:hover {
         color: blue;
       }
+
+    label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+    input,
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input.is-invalid {
+        border-color: red;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 0.9rem;
+        margin-top: -10px;
+        margin-bottom: 15px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+    .AddButtonC{
+        margin-left: 2%;
+        width:10%;
+    }
+    .tableC {
+        text-align: center;
+    }
+    .EnableC {
+        color: green;
+    }
+
+    .DisableC {
+        color: red;
+    }
+    .dropdownMenuC {
+        background-color: #acadaf;
+    }
+
+    .formC {
+        margin-bottom: -10px;
+    }
+
+    .modalTitleC {
+        font-family: 'Cairo', sans-serif;
+    }
+    .closeButtonC {
+        border: 1px solid #fdfcfc;
+        border-radius: 5px;
+        color: white !important;
+    }
+    .submitButtonC {
+        color: white;width: auto;
+        margin-bottom: 0;
+    }
+
+    .modelFooterC {
+        padding-bottom: 0;
+    }
+
+    .price-container {
+        font-family: Arial, sans-serif;
+        display: inline-flex;
+        align-items: baseline;
+        gap: 4px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .currency-symbol {
+        font-size: 16px;
+        color: #666;
+    }
+
+    .price-amount {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1f16a5;
+    }
 </style>

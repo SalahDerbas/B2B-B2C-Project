@@ -4,40 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Failed</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
             text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 50%;
-            width: 100%;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transform: scale(0.8);
+            animation: popIn 0.5s ease-out forwards;
         }
-        h1 {
-            color: #dc3545;
-            font-size: 2em;
+        .error-icon {
+            font-size: 80px;
+            color: #e63946;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2b2d42;
             margin-bottom: 10px;
         }
-        p {
+        .message {
+            font-size: 18px;
             color: #555;
-            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+        .retry-button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #e63946;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+        .retry-button:hover {
+            background-color: #b71c1c;
+            transform: scale(1.05);
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Payment Failed!</h1>
-</div>
+    <div class="container">
+        <div class="error-icon">&#128683;</div>
+        <div class="title">Payment Failed</div>
+        <div class="message">Unfortunately, your payment could not be processed. Please try again or contact support for help.</div>
+    </div>
 </body>
 </html>

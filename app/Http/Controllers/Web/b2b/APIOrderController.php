@@ -67,7 +67,7 @@ class APIOrderController extends Controller
     public function exportOrder($id)
     {
         try{
-            return Excel::download(new OrderExport($id), 'order_data.xlsx');
+            return Excel::download(new OrderExport($id), getFileName('order_data').'.xlsx');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage() );
         }
@@ -85,7 +85,7 @@ class APIOrderController extends Controller
             $status_order_id   = request()->status_order_id;
             $status_package_id = request()->status_package_id;
 
-            return Excel::download(new OrdersExport($status_order_id , $status_package_id), 'orders_data.xlsx');
+            return Excel::download(new OrdersExport($status_order_id , $status_package_id), getFileName('orders').'.xlsx');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage() );
         }

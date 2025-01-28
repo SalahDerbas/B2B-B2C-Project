@@ -22,4 +22,9 @@ class Category extends Model
     {
         return Category::where('sub_category_id', $this->id)->where('status', 1)->exists();
     }
+
+    public function getCategoryApp()
+    {
+        return $this->belongsTo(Category::class, 'sub_category_id');
+    }
 }

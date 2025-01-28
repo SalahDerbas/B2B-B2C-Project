@@ -20,8 +20,8 @@ class AdminSeeder extends Seeder
 
         DB::table('admins')->insert([
             [
-                'username'        => 'Salah Merchant'                  ,
-                'email'           => 'salah.merchant@sd-softwares.com' ,
+                'username'        => 'Salah Admin'                     ,
+                'email'           => 'salah.admin@sd-softwares.com'    ,
                 'password'        => Hash::make('Sal123@@')            ,
                 'status'          => True                              ,
                 'created_at'      => Carbon::now()                     ,

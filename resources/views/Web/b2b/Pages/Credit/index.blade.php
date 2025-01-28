@@ -18,43 +18,6 @@
         font-size: 1.5rem;
     }
 
-    label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-
-    input,
-    button {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    input.is-invalid {
-        border-color: red;
-    }
-
-    .error-message {
-        color: red;
-        font-size: 0.9rem;
-        margin-top: -10px;
-        margin-bottom: 15px;
-    }
-
-    button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-
     .payment-methods {
         display: flex;
         flex-wrap: wrap;

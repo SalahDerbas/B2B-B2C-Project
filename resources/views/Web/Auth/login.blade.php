@@ -8,8 +8,22 @@
     </div>
 
     <div class="col align-items-center flex-col sign-in">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="form-wrapper align-items-center">
-            <form method="POST" action="{{ route('auth.login') }}">
+            @if($isAdmin)
+                <form method="POST" action="{{ route('admin.auth.loginAdmin') }}">
+            @else
+                <form method="POST" action="{{ route('auth.login') }}">
+            @endif
                 @csrf
                 <div class="form sign-in">
                     <div class="input-group">
@@ -17,23 +31,20 @@
                         <input type="email" placeholder="Enter Email"
                                class="form-control @error('email') is-invalid @enderror"
                                id="email" name="email"  value="{{ old('email') }}" required autocomplete="email" autofocus>
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        @if ($errors->has('email'))
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                        @endif
+
                     </div>
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
                         <input id="password" type="password"
                                class="form-control @error('password') is-invalid @enderror" name="password"
                                required autocomplete="current-password" placeholder="Enter Password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+                        @if ($errors->has('password'))
+                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                        @endif
+                       </div>
                     <button> Submit </button>
                 </div>
             </form>

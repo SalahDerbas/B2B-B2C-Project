@@ -6,8 +6,10 @@ use Carbon\Carbon;
 use App\Models\PaymentPrice;
 use App\Models\Order;
 use App\Models\Billing;
+use App\Models\ItemSource;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 
 
@@ -70,7 +72,7 @@ if (!function_exists('handleFileUpload')) {
             if (Storage::exists($oldPath))
                 Storage::delete($oldPath);
         }
-        $newPath = $file->store($path);
+        $newPath = $file->store($path,'public');
         return env('APP_URL').'storage/'.$newPath;
 
     }
@@ -292,14 +294,11 @@ if (!function_exists("decryptWithKey")) {
  * @author Salah Derbas
  * @return string A UUID version 4 string in the format 8-4-4-4-12 (e.g., 550e8400-e29b-41d4-a716-446655440000).
  */
-if (!function_exists("generateUUID")) {
-    function generateUUID()
+if (!function_exists("generateString")) {
+    function generateString(int $strength = 100)
     {
-        $bytes = random_bytes(16);
-        $bytes[6] = chr((ord($bytes[6]) & 0x0f) | 0x40); // Set version to 4
-        $bytes[8] = chr((ord($bytes[8]) & 0x3f) | 0x80); // Set variant
-
-        return vsprintf('%02x%02x-%02x-%02x-%02x-%02x%02x%02x', str_split(bin2hex($bytes), 2));
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle(str_repeat($characters, ceil($strength / strlen($characters)))), 0, $strength);
     }
 }
 
@@ -381,7 +380,7 @@ if (!function_exists('getNumberID')) {
     function getNumberID($key)
     {
         $date = Carbon::now();
-       return $key.'--'.$date->year.'--'.$date->month.'--'.$date->day.'--'.$date->format('H:i:s');
+       return '('.$key.')-('.Auth::user()->email.')-('.$date->year.'-'.$date->month.'-'.$date->day.'-'.$date->format('H:i:s').')';
     }
 }
 
@@ -399,3 +398,30 @@ if (!function_exists("getDataLookups")) {
         return Lookup::where(['code' => $code ])->get();
     }
 }
+
+
+if (!function_exists('getFileName')) {
+    function getFileName($key)
+    {
+       return '('.$key.')-('.formatDate(Carbon::now()).')';
+    }
+}
+
+
+
+
+
+if (!function_exists('CustomizeFileUpload')) {
+    function CustomizeFileUpload($file, $type, $directory, $oldPath = null)
+    {
+        $destinationPath = public_path($directory);
+        if($type === 'update' && $oldPath)  {
+            if (File::exists($oldPath))
+            File::delete($oldPath);
+        }
+        $file->move($destinationPath, $file->getClientOriginalName());
+        return url($directory .'/'. $file->getClientOriginalName());
+
+    }
+}
+

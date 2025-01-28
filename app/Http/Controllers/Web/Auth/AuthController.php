@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Web\Auth\AuthRequest;
 use App\Jobs\API\V1\b2b\Auth\SendOTPEmailJob;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Admin;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -21,7 +23,8 @@ class AuthController extends Controller
      */
     public function loginPage()
     {
-        return view('Web.Auth.login');
+        $isAdmin = False;
+        return view('Web.Auth.login' , compact('isAdmin'));
     }
 
     /**
@@ -33,8 +36,9 @@ class AuthController extends Controller
      */
     public function login(AuthRequest $request)
     {
+        $validated = $request->validated();
         if(!Auth::attempt(['email'  => $request->email  ,'password' => $request->password]))
-            return back()->withErrors(['email' => 'Invalid credentials']);
+            return back()->withErrors(['error' => 'Invalid credentials']);
 
         return $this->sendOTPEmail($request->email , rand(10000 , 99999));
     }
@@ -127,5 +131,55 @@ class AuthController extends Controller
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect()->route('auth.loginPage');
+    }
+
+    // =================================================================================================================================
+
+    /**
+     * Display the admin login page.
+     *
+     * @author Salah Derbas
+     * @return \Illuminate\View\View
+     */
+    public function loginAdminPage()
+    {
+        $isAdmin = True;
+        return view('Web.Auth.login' , compact('isAdmin'));
+    }
+
+    /**
+     * Authenticate an admin based on the provided credentials.
+     *
+     * @author Salah Derbas
+     * @param AuthRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function loginAdmin(AuthRequest $request)
+    {
+        $validated = $request->validated();
+        $Admin = Admin::where('email', $request->email)->first();
+
+        if( !$Admin || !Hash::check($request->password, $Admin->password))
+            return back()->withErrors(['error' => 'Invalid credentials']);
+
+        Session::put('is_admin', true);
+        Auth::guard('admin')->login($Admin);
+        return redirect()->route('admin.home');
+    }
+
+    /**
+     * Log out the currently authenticated admin and invalidate the session.
+     *
+     * @author Salah Derbas
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logoutAdmin()
+    {
+        Auth::guard('admin')->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        Session::put('is_admin', false);
+        return redirect()->route('admin.auth.loginAdminPage');
+
     }
 }

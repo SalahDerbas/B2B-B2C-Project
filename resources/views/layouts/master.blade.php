@@ -10,7 +10,13 @@
         @include('layouts.header')
         <div class="container-fluid">
             <div class="row">
-                @include('layouts.sidebar')
+
+                @if(Session::get('is_admin'))
+                    @include('layouts.sidebar-admin')
+                @else
+                    @include('layouts.sidebar-b2b')
+                @endif
+
                 <div class="content-wrapper">
                     @include('layouts.page-title')
                     @yield('content')
