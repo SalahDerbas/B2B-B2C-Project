@@ -32,14 +32,19 @@ class B2BRequest extends FormRequest
         return true;
     }
 
+    /**
+     * Handle the processing of operator data.
+     *
+     * @author Salah Derbas
+     */
     protected function handleOperaterData()
     {
         $data = $this->all();
 
-        $operaters = $data['operaters'] ?? [];
-        $values = $data['values'] ?? [];
-        $types = $data['types'] ?? [];
-        $username = $data['username'] ?? null;
+        $operaters  = $data['operaters'] ?? [];
+        $values     = $data['values'] ?? [];
+        $types      = $data['types'] ?? [];
+        $username   = $data['username'] ?? null;
 
         $this->validateOperaterData($operaters, $values, $types);
 
@@ -50,6 +55,11 @@ class B2BRequest extends FormRequest
         $this->replace(array_merge($data, ['payment_id' => $paymentId]));
     }
 
+    /**
+     * Validate the operator data counts.
+     *
+     * @author Salah Derbas
+     */
     private function validateOperaterData(array $operaters, array $values, array $types)
     {
         if (count($operaters) !== count($values) || count($values) !== count($types)) {
@@ -59,35 +69,50 @@ class B2BRequest extends FormRequest
         }
     }
 
+    /**
+     * Create a new payment record and return its ID.
+     *
+     * @author Salah Derbas
+     */
     private function createPayment(?string $username): int
     {
         return Payment::insertGetId([
-            'name'       => $username,
-            'is_b2b'     => true,
-            'status'     => true,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'name'        =>  $username,
+            'is_b2b'      =>  true,
+            'status'      =>  true,
+            'created_at'  =>  Carbon::now(),
+            'updated_at'  =>  Carbon::now(),
         ]);
     }
 
+    /**
+     * Create operator records associated with a payment.
+     *
+     * @author Salah Derbas
+     */
     private function createOperaters(array $operaters, array $values, array $types, int $paymentId)
     {
         $operaterData = [];
 
         foreach ($operaters as $index => $name) {
             $operaterData[] = [
-                'payment_id' => $paymentId,
-                'name'       => $name,
-                'type_id'    => $types[$index],
-                'value'      => $values[$index],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'payment_id'   =>  $paymentId,
+                'name'         =>  $name,
+                'type_id'      =>  $types[$index],
+                'value'        =>  $values[$index],
+                'created_at'   =>  Carbon::now(),
+                'updated_at'   =>  Carbon::now(),
             ];
         }
 
         Operater::insert($operaterData);
     }
 
+    /**
+     * Handle validation after the request is passed.
+     *
+     * @author Salah Derbas
+     */
     protected function passedValidation(): void
     {
         $route = $this->route()->getName();
@@ -95,104 +120,146 @@ class B2BRequest extends FormRequest
             $this->handleOperaterData();
     }
 
-
+    /**
+     * Define the rules for storing a B2B request.
+     *
+     * @author Salah Derbas
+     */
     private function storeb2bRequest()
     {
         return [
             'rules' => [
-                'username'          =>  ['required' ,  Rule::unique(User::getTableName(), "usrename")] ,
-                'name'              =>  ['required'] ,
-                'email'             =>  ['required'  ,  Rule::unique(User::getTableName(), "email") , 'email'],
-                'password'          =>  ['required'  , 'min:6' , 'max:12'],
+                'username'          =>  ['required', Rule::unique(User::getTableName(), "usrename")],
+                'name'              =>  ['required'],
+                'email'             =>  ['required', Rule::unique(User::getTableName(), "email"), 'email'],
+                'password'          =>  ['required', 'min:6', 'max:12'],
                 'b2b_balance'       =>  ['required'],
-                'operaters'         =>  ['required' , 'array'],
-                'values'            =>  ['required' , 'array'],
-                'types'             =>  ['required' , 'array'],
-            ]
-        ];
-    }
-
-    private function editb2bRequest()
-    {
-        return [
-            'rules' => [
-                'id'          =>  ['required' , 'exists:users,id'] ,
-            ]
-        ];
-    }
-
-    private function updateb2bRequest()
-    {
-        return [
-            'rules' => [
-                'id'                =>  ['required' , 'exists:users,id'],
-                'username'          =>  ['required' ,  Rule::unique('users' , 'usrename')->ignore($this->id)] ,
-                'name'              =>  ['required'] ,
-                'email'             =>  ['required'  ,  Rule::unique('users' ,'email')->ignore($this->id) ],
-                'password'          =>  ['required'  , 'min:6' , 'max:12'],
-                'b2b_balance'       =>  ['required'],
-            ]
-        ];
-
-    }
-
-    private function switchStatusb2bRequest()
-    {
-        return [
-            'rules' => [
-                'id'          =>  ['required' , 'exists:users,id'],
-            ]
-        ];
-    }
-
-    private function deleteb2bRequest()
-    {
-        return [
-            'rules' => [
-                'id'          =>  ['required' , 'exists:users,id'],
-            ]
-        ];
-    }
-    private function editOperatersb2bRequest()
-    {
-        return [
-            'rules' => [
-                'id'          =>  ['required' , 'exists:users,id'],
-            ]
-        ];
-    }
-
-    private function newOperatersb2bRequest()
-    {
-        return [
-            'rules' => [
-                'id'          =>  ['required' , 'exists:users,id'],
-            ]
-        ];
-    }
-
-    private function addOperatersb2bRequest()
-    {
-        return [
-            'rules' => [
-                'payment_id'        =>  ['required' , 'exists:payments,id'],
-                'name'              =>  ['required' ],
-                'value'             =>  ['required' ],
-                'type_id'           =>  ['required' ],
-            ]
-        ];
-    }
-
-    private function getItemsb2bRequest()
-    {
-        return [
-            'rules' => [
-                'id'          =>  ['required' , 'exists:users,id'],
+                'operaters'         =>  ['required', 'array'],
+                'values'            =>  ['required', 'array'],
+                'types'             =>  ['required', 'array'],
             ]
         ];
     }
 
     /**
+     * Define the rules for editing a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function editb2bRequest()
+    {
+        return [
+            'rules' => [
+                'id' => ['required', 'exists:users,id'],
+            ]
+        ];
+    }
+
+    /**
+     * Define the rules for updating a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function updateb2bRequest()
+    {
+        return [
+            'rules' => [
+                'id'                => ['required', 'exists:users,id'],
+                'username'          => ['required', Rule::unique('users', 'usrename')->ignore($this->id)],
+                'name'              => ['required'],
+                'email'             => ['required', Rule::unique('users', 'email')->ignore($this->id)],
+                'password'          => ['required', 'min:6', 'max:12'],
+                'b2b_balance'       => ['required'],
+            ]
+        ];
+    }
+
+    /**
+     * Define the rules for switching the status of a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function switchStatusb2bRequest()
+    {
+        return [
+            'rules' => [
+                'id' => ['required', 'exists:users,id'],
+            ]
+        ];
+    }
+
+    /**
+     * Define the rules for deleting a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function deleteb2bRequest()
+    {
+        return [
+            'rules' => [
+                'id' => ['required', 'exists:users,id'],
+            ]
+        ];
+    }
+
+    /**
+     * Define the rules for editing operators in a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function editOperatersb2bRequest()
+    {
+        return [
+            'rules' => [
+                'id' => ['required', 'exists:users,id'],
+            ]
+        ];
+    }
+
+    /**
+     * Define the rules for adding new operators in a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function newOperatersb2bRequest()
+    {
+        return [
+            'rules' => [
+                'id' => ['required', 'exists:users,id'],
+            ]
+        ];
+    }
+
+    /**
+     * Define the rules for adding operators to a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function addOperatersb2bRequest()
+    {
+        return [
+            'rules' => [
+                'payment_id'        => ['required', 'exists:payments,id'],
+                'name'              => ['required'],
+                'value'             => ['required'],
+                'type_id'           => ['required'],
+            ]
+        ];
+    }
+
+    /**
+     * Define the rules for retrieving items in a B2B request.
+     *
+     * @author Salah Derbas
+     */
+    private function getItemsb2bRequest()
+    {
+        return [
+            'rules' => [
+                'id' => ['required', 'exists:users,id'],
+            ]
+        ];
+    }    /**
      * Get requested data based on the current route.
      *
      * @param string $key

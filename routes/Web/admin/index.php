@@ -152,7 +152,13 @@ Route::middleware([Admin::class])->group(function () {
 
     Route::prefix('promo_codes')->group(function () {
 
-        Route::get('',                       [PromoCodeController::class, 'index'])->name('admin.promo_codes.index');
+        Route::get('',                     [PromoCodeController::class, 'index'])->name('admin.promo_codes.index');
+        Route::get('create',               [PromoCodeController::class, 'create'])->name('admin.promo_codes.create');
+        Route::get('edit',                 [PromoCodeController::class, 'edit'])->name('admin.promo_codes.edit');
+        Route::post('store',               [PromoCodeController::class, 'store'])->name('admin.promo_codes.store');
+        Route::post('update',              [PromoCodeController::class, 'update'])->name('admin.promo_codes.update');
+        Route::delete('delete',            [PromoCodeController::class, 'delete'])->name('admin.promo_codes.delete');
+
     });
 
 

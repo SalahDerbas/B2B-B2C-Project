@@ -16,7 +16,7 @@ class PromoCodeSeeder extends Seeder
         DB::table('promo_codes')->delete();
 
         DB::table('promo_codes')->insert([
-            ['promo_code' => 'RAMADAN' , 'description' => 'This is description' , 'from_date' => '2024-05-01 00:00:00' , 'to_date' => '2024-06-30 00:00:00' , 'type_id' => 3 , 'limit' => 100 , 'user_limit' => 1 , 'counter' => 0 , 'amount' => 1.00 , 'created_at' => now(), 'updated_at'  => now()],
+            ['promo_code' => 'RAMADAN' , 'description' => 'This is description' , 'from_date' => '2024-05-01 00:00:00' , 'to_date' => '2024-06-30 00:00:00' , 'type_id' => 22 , 'limit' => 100 , 'user_limit' => 1 , 'counter' => 0 , 'amount' => 1.00 , 'created_at' => now(), 'updated_at'  => now()],
         ]);
 
     }

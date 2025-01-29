@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PaymentPrice;
 use App\Models\PromoCode;
-use App\Models\UserPromoCode;
 use App\Models\Order;
 use Carbon\Carbon;
 
@@ -134,7 +133,7 @@ class SubmitRequest extends BaseRequest
     {
         $Promocode      =  PromoCode::where('promo_code' , $inputs['promo_code'])->first();
         $final_price    =  PaymentPrice::where('item_source_id' , $inputs['item_source_id'])->pluck('final_price')->first();
-        $count          =  UserPromocode::where(['user_id' => Auth::id(), 'promocode_id' => $Promocode->id])->count();
+        $count          =  Order::where(['user_id' => Auth::id(), 'promo_code_id' => $Promocode->id])->count();
         if($count >= $Promocode["user_limit"] )
             return $this->generateErrorResponse(PROMOCODE_USER_LIMIT);
 
